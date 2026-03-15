@@ -14,10 +14,6 @@ import { NotFoundPage } from '@/pages/not-found-page'
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Navigate to="/dashboard" replace />,
-  },
-  {
     element: <PublicRoute />,
     children: [
       { path: '/login', element: <LoginPage /> },
@@ -26,17 +22,16 @@ const router = createBrowserRouter([
   },
   {
     element: <ProtectedRoute />,
+    errorElement: <ErrorBoundary />,
     children: [
+      { index: true, path: '/', element: <Navigate to="/dashboard" replace /> },
       { path: '/dashboard', element: <DashboardPage /> },
       { path: '/test/new', element: <NewTestPage /> },
       { path: '/test/:id', element: <TestDetailPage /> },
       { path: '/marker/:key/history', element: <MarkerHistoryPage /> },
       { path: '/profile', element: <ProfilePage /> },
+      { path: '*', element: <NotFoundPage /> },
     ],
-  },
-  {
-    path: '*',
-    element: <NotFoundPage />,
   },
 ])
 
