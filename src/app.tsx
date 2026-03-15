@@ -11,20 +11,22 @@ import { TestDetailPage } from '@/pages/test-detail-page'
 import { MarkerHistoryPage } from '@/pages/marker-history-page'
 import { ProfilePage } from '@/pages/profile-page'
 import { NotFoundPage } from '@/pages/not-found-page'
+import { LandingPage } from '@/pages/landing-page'
 
 const router = createBrowserRouter([
   {
-    element: <PublicRoute />,
+    path: '/',
+    element: <PublicRoute fallback={<Navigate to="/dashboard" replace />} />,
     children: [
-      { path: '/login', element: <LoginPage /> },
-      { path: '/register', element: <RegisterPage /> },
+      { index: true, element: <LandingPage /> },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'register', element: <RegisterPage /> },
     ],
   },
   {
     element: <ProtectedRoute />,
     errorElement: <ErrorBoundary />,
     children: [
-      { index: true, path: '/', element: <Navigate to="/dashboard" replace /> },
       { path: '/dashboard', element: <DashboardPage /> },
       { path: '/test/new', element: <NewTestPage /> },
       { path: '/test/:id', element: <TestDetailPage /> },

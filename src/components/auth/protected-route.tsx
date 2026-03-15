@@ -1,10 +1,12 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
+import { useAutoSavePending } from '@/hooks/use-auto-save-pending'
 import { Header } from '@/components/layout/header'
 import { LoadingScreen } from '@/components/ui/spinner'
 
 export function ProtectedRoute() {
   const { user, loading } = useAuth()
+  useAutoSavePending()
 
   if (loading) {
     return (

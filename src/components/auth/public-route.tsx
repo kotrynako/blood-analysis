@@ -1,7 +1,12 @@
+import type { ReactNode } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
 
-export function PublicRoute() {
+interface PublicRouteProps {
+  fallback?: ReactNode
+}
+
+export function PublicRoute({ fallback }: PublicRouteProps) {
   const { user, loading } = useAuth()
 
   if (loading) {
@@ -13,7 +18,7 @@ export function PublicRoute() {
   }
 
   if (user) {
-    return <Navigate to="/dashboard" replace />
+    return <>{fallback ?? <Navigate to="/dashboard" replace />}</>
   }
 
   return <Outlet />
