@@ -31,6 +31,7 @@ export function useFileUpload(): UseFileUploadReturn {
           .upload(fileName, file, {
             cacheControl: '3600',
             upsert: false,
+            contentType: file.type,
           })
 
         if (uploadError) throw uploadError

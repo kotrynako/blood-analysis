@@ -20,12 +20,36 @@ describe('FileUpload', () => {
     expect(screen.getByLabelText('Pasirinkti failą')).toBeInTheDocument()
   })
 
-  it('calls onFileSelect with valid file', async () => {
+  it('calls onFileSelect with valid PDF file', async () => {
     const user = userEvent.setup()
     const onFileSelect = vi.fn()
     render(<FileUpload onFileSelect={onFileSelect} />)
 
     const file = createMockFile('test.pdf', 1024, 'application/pdf')
+    const input = screen.getByLabelText('Pasirinkti failą')
+    await user.upload(input, file)
+
+    expect(onFileSelect).toHaveBeenCalledWith(file)
+  })
+
+  it('calls onFileSelect with valid JPG file', async () => {
+    const user = userEvent.setup()
+    const onFileSelect = vi.fn()
+    render(<FileUpload onFileSelect={onFileSelect} />)
+
+    const file = createMockFile('photo.jpg', 2048, 'image/jpeg')
+    const input = screen.getByLabelText('Pasirinkti failą')
+    await user.upload(input, file)
+
+    expect(onFileSelect).toHaveBeenCalledWith(file)
+  })
+
+  it('calls onFileSelect with valid PNG file', async () => {
+    const user = userEvent.setup()
+    const onFileSelect = vi.fn()
+    render(<FileUpload onFileSelect={onFileSelect} />)
+
+    const file = createMockFile('screenshot.png', 4096, 'image/png')
     const input = screen.getByLabelText('Pasirinkti failą')
     await user.upload(input, file)
 

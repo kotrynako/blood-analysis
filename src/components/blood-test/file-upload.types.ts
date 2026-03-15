@@ -11,4 +11,11 @@ export const DEFAULT_ACCEPTED_TYPES = [
   'image/png',
 ]
 
+export const DEFAULT_ACCEPT_EXTENSIONS = [
+  '.pdf',
+  '.jpg',
+  '.jpeg',
+  '.png',
+]
+
 export const DEFAULT_MAX_SIZE_MB = 10

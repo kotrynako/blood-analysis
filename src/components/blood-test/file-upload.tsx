@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from 'react'
 import type { DragEvent, ChangeEvent } from 'react'
 import {
   DEFAULT_ACCEPTED_TYPES,
+  DEFAULT_ACCEPT_EXTENSIONS,
   DEFAULT_MAX_SIZE_MB,
   type FileUploadProps,
 } from './file-upload.types'
@@ -120,7 +121,7 @@ export function FileUpload({
       <input
         ref={inputRef}
         type="file"
-        accept={acceptedTypes.join(',')}
+        accept={[...acceptedTypes, ...DEFAULT_ACCEPT_EXTENSIONS].join(',')}
         onChange={handleInputChange}
         className="hidden"
         aria-label="Pasirinkti failą"
