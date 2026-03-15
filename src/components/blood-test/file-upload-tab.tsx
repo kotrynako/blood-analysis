@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/use-auth'
 import { useFileUpload } from '@/hooks/use-file-upload'
 import { useCreateBloodTest } from '@/hooks/use-blood-tests'
 import { ocrService, type OcrMarkerResult } from '@/services/ocr.service'
+import { MARKER_MAP } from '@/data/marker-definitions'
 import { FileUpload } from './file-upload'
 
 type Step = 'upload' | 'processing' | 'review' | 'error'
@@ -112,7 +113,7 @@ export function FileUploadTab() {
       <div className="divide-y divide-neutral rounded-lg border border-neutral">
         {extractedMarkers.map((m) => (
           <div key={m.marker_key} className="flex items-center justify-between px-4 py-2">
-            <span className="text-sm text-dark">{m.marker_key}</span>
+            <span className="text-sm text-dark">{MARKER_MAP[m.marker_key]?.name ?? m.marker_key}</span>
             <span className="text-sm font-medium text-dark">
               {m.value} {m.unit}
             </span>

@@ -1,9 +1,12 @@
+import { useMemo } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useBloodTest, useBloodTestResults, useDeleteBloodTest } from '@/hooks/use-blood-tests'
+import { useBloodTest, useBloodTests, useBloodTestResults, useDeleteBloodTest } from '@/hooks/use-blood-tests'
 import { useProfile } from '@/hooks/use-profile'
+import { useAiInsights } from '@/hooks/use-ai-insights'
 import { toMarkerResults, calculateSummary } from '@/utils/blood-test.utils'
 import { TestSummaryCard } from '@/components/blood-test/test-summary'
 import { MarkerResultsGrid } from '@/components/blood-test/marker-results-grid'
+import { AiInsightsCard } from '@/components/blood-test/ai-insights-card'
 
 export function TestDetailPage() {
   const { id } = useParams<{ id: string }>()
@@ -13,10 +16,32 @@ export function TestDetailPage() {
   const { data: profile } = useProfile()
   const deleteTest = useDeleteBloodTest()
 
+  const { data: allTests } = useBloodTests()
+
+  const previousTestId = useMemo(() => {
+    if (!allTests || !test) return null
+    const sorted = [...allTests].sort(
+      (a, b) => new Date(b.test_date).getTime() - new Date(a.test_date).getTime(),
+    )
+    const currentIndex = sorted.findIndex((t) => t.id === id)
+    return currentIndex >= 0 && currentIndex < sorted.length - 1
+      ? sorted[currentIndex + 1].id
+      : null
+  }, [allTests, test, id])
+
+  const { data: prevRawResults } = useBloodTestResults(previousTestId ?? '')
+
   const isLoading = testLoading || resultsLoading
   const gender = profile?.gender ?? null
   const markerResults = rawResults ? toMarkerResults(rawResults, gender) : []
   const summary = markerResults.length > 0 ? calculateSummary(markerResults) : null
+
+  const aiInsights = useAiInsights({
+    testId: id ?? '',
+    cachedSummary: test?.ai_summary ?? null,
+    currentResults: rawResults ?? [],
+    previousResults: prevRawResults ?? null,
+  })
 
   const handleDelete = async () => {
     if (!id) return
@@ -61,6 +86,15 @@ export function TestDetailPage() {
       </div>
 
       {summary && <TestSummaryCard summary={summary} />}
+
+      <AiInsightsCard
+        summary={aiInsights.summary}
+        isLoading={aiInsights.isLoading}
+        isRegenerating={aiInsights.isRegenerating}
+        error={aiInsights.error}
+        available={aiInsights.available}
+        onRegenerate={aiInsights.regenerate}
+      />
 
       {markerResults.length > 0 ? (
         <MarkerResultsGrid results={markerResults} />

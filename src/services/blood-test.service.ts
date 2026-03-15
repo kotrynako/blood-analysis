@@ -99,6 +99,15 @@ export const bloodTestService = {
     )
   },
 
+  async updateAiSummary(testId: string, summary: string): Promise<void> {
+    const { error } = await supabase
+      .from('blood_tests')
+      .update({ ai_summary: summary })
+      .eq('id', testId)
+
+    if (error) throw error
+  },
+
   async createWithResults(
     input: CreateBloodTestInput,
     results: Omit<CreateBloodTestResultInput, 'test_id'>[],

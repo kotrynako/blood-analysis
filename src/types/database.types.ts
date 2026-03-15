@@ -11,6 +11,7 @@ export interface BloodTest {
   test_date: string
   notes: string | null
   file_url: string | null
+  ai_summary: string | null
   created_at: string
 }
 
