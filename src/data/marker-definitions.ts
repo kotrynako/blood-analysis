@@ -1,0 +1,192 @@
+import type { MarkerDefinition, MarkerKey } from '@/types/blood-test.types'
+
+export const MARKER_DEFINITIONS: MarkerDefinition[] = [
+  {
+    key: 'hemoglobin',
+    name: 'Hemoglobinas',
+    unit: 'g/L',
+    description: 'Baltymas eritrocituose, pernešantis deguonį į audinius.',
+    highExplanation: 'Gali rodyti dehidrataciją, plaučių ligas ar policitemiją.',
+    lowExplanation: 'Gali rodyti anemiją, kraujavimą ar mitybos trūkumus.',
+    recommendations: ['Vartokite geležį turinčius maisto produktus', 'Gerkite pakankamai vandens'],
+    referenceRanges: {
+      male: { min: 130, max: 175 },
+      female: { min: 120, max: 160 },
+    },
+  },
+  {
+    key: 'rbc',
+    name: 'Eritrocitai',
+    unit: '×10¹²/L',
+    description: 'Raudonieji kraujo kūneliai, pernešantys deguonį.',
+    highExplanation: 'Gali rodyti dehidrataciją, širdies ar plaučių ligas.',
+    lowExplanation: 'Gali rodyti anemiją, kraujavimą ar kaulų čiulpų problemas.',
+    recommendations: ['Palaikykite subalansuotą mitybą', 'Reguliariai sportuokite'],
+    referenceRanges: {
+      male: { min: 4.5, max: 5.9 },
+      female: { min: 3.8, max: 5.2 },
+    },
+  },
+  {
+    key: 'wbc',
+    name: 'Leukocitai',
+    unit: '×10⁹/L',
+    description: 'Baltieji kraujo kūneliai, atsakingi už imuninę sistemą.',
+    highExplanation: 'Gali rodyti infekciją, uždegimą ar stresą.',
+    lowExplanation: 'Gali rodyti susilpnėjusią imuninę sistemą ar kaulų čiulpų problemas.',
+    recommendations: ['Stiprinkite imuninę sistemą', 'Venkite kontakto su sergančiais'],
+    referenceRanges: {
+      male: { min: 4.0, max: 10.0 },
+      female: { min: 4.0, max: 10.0 },
+    },
+  },
+  {
+    key: 'plt',
+    name: 'Trombocitai',
+    unit: '×10⁹/L',
+    description: 'Kraujo plokštelės, dalyvaujančios kraujo krešėjime.',
+    highExplanation: 'Gali rodyti uždegimą, infekciją ar geležies trūkumą.',
+    lowExplanation: 'Gali rodyti kaulų čiulpų sutrikimą ar autoimuninę ligą.',
+    recommendations: ['Stebėkite kraujavimo požymius', 'Konsultuokitės su gydytoju'],
+    referenceRanges: {
+      male: { min: 150, max: 400 },
+      female: { min: 150, max: 400 },
+    },
+  },
+  {
+    key: 'hematocrit',
+    name: 'Hematokritas',
+    unit: '%',
+    description: 'Eritrocitų tūrio dalis kraujyje.',
+    highExplanation: 'Gali rodyti dehidrataciją ar policitemiją.',
+    lowExplanation: 'Gali rodyti anemiją ar per didelį skysčių kiekį organizme.',
+    recommendations: ['Gerkite pakankamai skysčių', 'Stebėkite hemoglobino lygį'],
+    referenceRanges: {
+      male: { min: 40, max: 54 },
+      female: { min: 36, max: 48 },
+    },
+  },
+  {
+    key: 'mcv',
+    name: 'MCV (vid. eritrocito tūris)',
+    unit: 'fL',
+    description: 'Vidutinis vieno eritrocito tūris.',
+    highExplanation: 'Gali rodyti vitamino B12 ar folio rūgšties trūkumą.',
+    lowExplanation: 'Gali rodyti geležies trūkumą ar talasemiją.',
+    recommendations: ['Tikrinkite vitaminų lygį', 'Vartokite B grupės vitaminus'],
+    referenceRanges: {
+      male: { min: 80, max: 100 },
+      female: { min: 80, max: 100 },
+    },
+  },
+  {
+    key: 'mch',
+    name: 'MCH (vid. Hb kiekis eritrocite)',
+    unit: 'pg',
+    description: 'Vidutinis hemoglobino kiekis viename eritrocite.',
+    highExplanation: 'Gali rodyti makrocitinę anemiją.',
+    lowExplanation: 'Gali rodyti geležies trūkumo anemiją.',
+    recommendations: ['Palaikykite geležies ir vitaminų balansą'],
+    referenceRanges: {
+      male: { min: 27, max: 33 },
+      female: { min: 27, max: 33 },
+    },
+  },
+  {
+    key: 'mchc',
+    name: 'MCHC (vid. Hb koncentracija)',
+    unit: 'g/L',
+    description: 'Vidutinė hemoglobino koncentracija eritrocituose.',
+    highExplanation: 'Gali rodyti sferocitozę ar dehidrataciją.',
+    lowExplanation: 'Gali rodyti geležies trūkumo anemiją ar talasemiją.',
+    recommendations: ['Stebėkite kartu su kitais eritrocitų rodikliais'],
+    referenceRanges: {
+      male: { min: 320, max: 360 },
+      female: { min: 320, max: 360 },
+    },
+  },
+  {
+    key: 'neutrophils',
+    name: 'Neutrofilai',
+    unit: '%',
+    description: 'Dažniausiai pasitaikantys baltieji kraujo kūneliai, kovojantys su bakterijomis.',
+    highExplanation: 'Gali rodyti bakterinę infekciją ar uždegimą.',
+    lowExplanation: 'Gali rodyti virusinę infekciją ar kaulų čiulpų sutrikimą.',
+    recommendations: ['Esant nukrypimams, konsultuokitės su gydytoju'],
+    referenceRanges: {
+      male: { min: 40, max: 70 },
+      female: { min: 40, max: 70 },
+    },
+  },
+  {
+    key: 'lymphocytes',
+    name: 'Limfocitai',
+    unit: '%',
+    description: 'Imuninės sistemos ląstelės, kovojančios su virusais.',
+    highExplanation: 'Gali rodyti virusinę infekciją ar limfomą.',
+    lowExplanation: 'Gali rodyti imunodeficitą ar autoimuninę ligą.',
+    recommendations: ['Stiprinkite imuninę sistemą vitaminais C ir D'],
+    referenceRanges: {
+      male: { min: 20, max: 45 },
+      female: { min: 20, max: 45 },
+    },
+  },
+  {
+    key: 'monocytes',
+    name: 'Monocitai',
+    unit: '%',
+    description: 'Baltieji kraujo kūneliai, šalinantys žuvusias ląsteles ir bakterijas.',
+    highExplanation: 'Gali rodyti lėtinę infekciją ar uždegimą.',
+    lowExplanation: 'Gali rodyti kaulų čiulpų sutrikimą.',
+    recommendations: ['Stebėkite bendrą leukocitų formulę'],
+    referenceRanges: {
+      male: { min: 2, max: 10 },
+      female: { min: 2, max: 10 },
+    },
+  },
+  {
+    key: 'eosinophils',
+    name: 'Eozinofilai',
+    unit: '%',
+    description: 'Baltieji kraujo kūneliai, reaguojantys į alergijas ir parazitus.',
+    highExplanation: 'Gali rodyti alergiją, astmą ar parazitinę infekciją.',
+    lowExplanation: 'Paprastai kliniškai nereikšmingas.',
+    recommendations: ['Esant padidėjimui, tikrinkite alerginius žymenis'],
+    referenceRanges: {
+      male: { min: 1, max: 6 },
+      female: { min: 1, max: 6 },
+    },
+  },
+  {
+    key: 'basophils',
+    name: 'Bazofilai',
+    unit: '%',
+    description: 'Retai pasitaikantys baltieji kraujo kūneliai, susiję su alerginėmis reakcijomis.',
+    highExplanation: 'Gali rodyti alergiją, hipotiroidizmą ar mieloproliferacinę ligą.',
+    lowExplanation: 'Paprastai kliniškai nereikšmingas.',
+    recommendations: ['Vertinkite kartu su kitais leukocitų rodikliais'],
+    referenceRanges: {
+      male: { min: 0, max: 2 },
+      female: { min: 0, max: 2 },
+    },
+  },
+  {
+    key: 'esr',
+    name: 'ENG (eritrocitų nusėdimo greitis)',
+    unit: 'mm/h',
+    description: 'Nespecifinis uždegimo rodiklis, rodantis eritrocitų nusėdimo greitį.',
+    highExplanation: 'Gali rodyti uždegimą, infekciją ar autoimuninę ligą.',
+    lowExplanation: 'Paprastai kliniškai nereikšmingas.',
+    recommendations: ['Esant padidėjimui, ieškokite uždegimo priežasties'],
+    referenceRanges: {
+      male: { min: 0, max: 15 },
+      female: { min: 0, max: 20 },
+    },
+  },
+]
+
+export const MARKER_MAP: Record<MarkerKey, MarkerDefinition> = Object.fromEntries(
+  MARKER_DEFINITIONS.map((m) => [m.key, m]),
+) as Record<MarkerKey, MarkerDefinition>
+
+export const MARKER_KEYS: MarkerKey[] = MARKER_DEFINITIONS.map((m) => m.key)
